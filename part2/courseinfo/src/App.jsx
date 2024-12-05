@@ -1,4 +1,4 @@
-import Course from './components/Course.jsx'
+import Courses from './components/Courses.jsx'
 
 const App = () => {
   const courses = [
@@ -48,12 +48,7 @@ const App = () => {
 
 
 
-  return (
-    <div>
-      <h2>Web development curriculum</h2>
-      {courses.map(course => <Course key={course.id} course={course}/>)}
-    </div>
-  )
+  return <Courses courses={courses} />
 }
 
 export default App
