@@ -1,6 +1,6 @@
 import PersonService from "../services/PersonService"
 
-const Persons = ({persons, setPersons, filter}) => {
+const Persons = ({persons, setPersons, filter, handleNotif}) => {
 
     const handleDelete = (event) => {
         // Get the person to delete
@@ -14,6 +14,7 @@ const Persons = ({persons, setPersons, filter}) => {
             PersonService
             .remove(id)
             .then(() =>  setPersons(persons.filter(person => person.id !== id)))
+            .catch(error => {handleNotif(`Information of ${person.name} has already been removed from server`, false)})
         }
     }
 

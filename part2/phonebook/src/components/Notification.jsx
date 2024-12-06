@@ -1,4 +1,4 @@
-const Notification = ({ message }) => {
+const Notification = ({ message, tone }) => {
 
     const confirmationStyle = {
       color: 'green',
@@ -13,6 +13,12 @@ const Notification = ({ message }) => {
 
     if (message === null) {
       return null
+    }
+
+    if (tone === false) {
+      confirmationStyle.color = 'red'
+    } else {
+      confirmationStyle.color = 'green'
     }
   
     return (

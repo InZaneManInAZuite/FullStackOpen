@@ -12,6 +12,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
   const [notif, setNotif] = useState(null)
+  const [notifTone, setNotifTone] = useState(true)
   
   const personService = PersonService
 
@@ -36,6 +37,11 @@ const App = () => {
   const handleNameChange = (event) => { setNewName(event.target.value) }
   const handlenumChange = (event) => { setNewNumber(event.target.value) }
 
+  const handleNotification = (message, tone) => {
+    setNotifTone(tone)
+    setNotif(message)
+  }
+
   // Event handler for form submission
   const handleOnSubmit = (event) => {
     event.preventDefault()
@@ -56,7 +62,7 @@ const App = () => {
           })
 
         // Display notification
-        setNotif(`Updated ${newName}`)
+        handleNotification(`Updated ${newName}`, true)
       }
       return
     }
@@ -76,7 +82,7 @@ const App = () => {
       })
 
     // Display notification
-    setNotif(`Added ${newPerson.name}`)
+    handleNotification(`Added ${newName}`, true)
 
     // Clear input fields
     setNewName('')
@@ -92,7 +98,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notif}/>
+      <Notification message={notif} tone={notifTone}/>
       <Filter onChange={handleFilterChange}/>
       <h3>add a new</h3>
       <PersonForm 
@@ -102,7 +108,11 @@ const App = () => {
         setPersons={setPersons}
         onSubmit={handleOnSubmit}/>
       <h3>Numbers</h3>
-      <Persons persons={persons} filter={filter} setPersons={setPersons}/>
+      <Persons 
+        persons={persons} 
+        filter={filter} 
+        setPersons={setPersons} 
+        handleNotif={handleNotification}/>
     </div>
   )
 }
