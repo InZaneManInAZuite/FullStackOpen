@@ -16,6 +16,12 @@ const App = () => {
         .then(response => setPersons(response.data))
   }, [])
 
+  const create = (newPerson) => {
+    axios
+        .post('http://localhost:3001/persons', newPerson)
+        .then(response => setPersons(persons.concat(response.data)))
+  }
+
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
   }
@@ -43,8 +49,11 @@ const App = () => {
       number: newNumber,
       id: persons.length + 1
     }
-    setPersons(persons.concat(newPerson))
+    
+    create(newPerson)
     setNewName('')
+    setNewNumber('')
+
   }  
 
   return (
