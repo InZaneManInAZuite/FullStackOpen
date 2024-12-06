@@ -13,15 +13,22 @@ const App = () => {
   
   const personService = PersonService
 
+
+
   useEffect(() => {
     personService
       .getAll()
       .then(persons => setPersons(persons))
   }, [])
 
+
+
   const handleFilterChange = (event) => { setFilter(event.target.value) }
   const handleNameChange = (event) => { setNewName(event.target.value) }
   const handlenumChange = (event) => { setNewNumber(event.target.value) }
+
+
+
 
   const handleOnSubmit = (event) => {
     event.preventDefault()
@@ -37,7 +44,7 @@ const App = () => {
     const newPerson = { 
       name: newName,
       number: newNumber,
-      id: persons.length + 1
+      id: (persons.length + 1).toString()
     }
     
     // Add new person to the phonebook
@@ -53,6 +60,12 @@ const App = () => {
 
   }  
 
+
+
+
+
+
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -63,7 +76,7 @@ const App = () => {
         onNumberChange={handlenumChange}
         onSubmit={handleOnSubmit}/>
       <h3>Numbers</h3>
-      <Persons persons={persons} filter={filter}/>
+      <Persons persons={persons} filter={filter} setPersons={setPersons}/>
     </div>
   )
 }
