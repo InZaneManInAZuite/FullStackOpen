@@ -36,7 +36,15 @@ const App = () => {
     // Check if person already exists
     const personExists = persons.find(person => person.name === newName)
     if (personExists) {
-      alert(`${newName} is already added to the phonebook`)
+      if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)) {
+        const updatedPerson = { ...personExists, number: newNumber }
+
+        personService
+          .update(personExists.id, updatedPerson)
+          .then(returnedPerson => {
+            setPersons(persons.map(person => person.id !== personExists.id ? person : returnedPerson))
+          })
+      }
       return
     }
 
@@ -74,6 +82,8 @@ const App = () => {
       <PersonForm 
         onNameChange={handleNameChange}
         onNumberChange={handlenumChange}
+        persons={persons}
+        setPersons={setPersons}
         onSubmit={handleOnSubmit}/>
       <h3>Numbers</h3>
       <Persons persons={persons} filter={filter} setPersons={setPersons}/>

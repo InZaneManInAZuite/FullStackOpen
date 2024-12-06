@@ -3,7 +3,6 @@ import PersonService from "../services/PersonService"
 const Persons = ({persons, setPersons, filter}) => {
 
     const handleDelete = (event) => {
-
         // Get the person to delete
         const id = event.target.id
         const person = persons.find(person => person.id === id)
@@ -17,9 +16,6 @@ const Persons = ({persons, setPersons, filter}) => {
             .then(() =>  setPersons(persons.filter(person => person.id !== id)))
         }
     }
-
-
-
 
     return (
         <div>
